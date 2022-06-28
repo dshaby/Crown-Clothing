@@ -1,5 +1,6 @@
 import { CATEGORIES_ACTION_TYPES } from "./categories.types";
 
+//don't think this needs to be exported?
 export const CATEGORIES_INITIAL_STATE = {
   categories: [],
 };
