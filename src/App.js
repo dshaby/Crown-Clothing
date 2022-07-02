@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Authentication from "./components/routes/authentication/authentication.component";
 import CheckOut from "./components/routes/checkout/checkout.component";
 import Home from "./components/routes/home/home.component";
 import Navigation from "./components/routes/navigation/navigation.component.jsx";
 import Shop from "./components/routes/shop/shop";
+import { selectCartItems } from "./store/cart/cart.selector";
 import { setCurrentUser } from "./store/user/user.action";
 import {
   createUserDocFromAuth,
@@ -28,6 +29,16 @@ const App = () => {
     });
     return unsubscribe;
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   const getCartItems = async () => {
+  //     const cartItems =
+  //   }
+
+  //   return getCartItems
+  // }, [dispatch]);
+
+  useSelector(selectCartItems);
 
   return (
     <>
