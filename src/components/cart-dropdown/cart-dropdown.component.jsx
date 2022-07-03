@@ -15,7 +15,6 @@ import {
 
 const CartDropdown = () => {
   // const { cartItems } = useContext(CartContext);
-
   const cartItems = useSelector(selectCartItems);
 
   let navigate = useNavigate();
@@ -24,7 +23,6 @@ const CartDropdown = () => {
   };
 
   const dispatch = useDispatch();
-
   const close = () => {
     dispatch(setIsCartOpen(false));
   };

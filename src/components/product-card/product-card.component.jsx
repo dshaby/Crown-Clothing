@@ -9,10 +9,10 @@ import "./product-card.styles.scss";
 const ProductCard = ({ product }) => {
   const { name, imageUrl, price } = product;
   const cartItems = useSelector(selectCartItems);
-  const dispatch = useDispatch();
 
   // const { addItemToCart } = useContext(CartContext);
 
+  const dispatch = useDispatch();
   const addProductToCart = (product) => {
     dispatch(addItemToCart(cartItems, product));
     dispatch(setIsCartOpen(true));
