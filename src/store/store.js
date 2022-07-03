@@ -1,24 +1,37 @@
 // import { configureStore } from "@reduxjs/toolkit";
 import { compose, createStore, applyMiddleware } from "redux";
-// import logger from "redux-logger";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
+import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
+// import { loggerMiddleware } from "./middleware/logger"; //if you prefer our middleware
 
-const loggerMiddleware = (store) => (next) => (action) => {
-  if (!action.type) {
-    return next(action);
-  }
-
-  console.log("Type: ", action.type);
-  console.log("Payload: ", action.payload);
-  console.log("Current (i.e. previous) state: ", store.getState());
-
-  next(action); // here, middleware passes action from store to mini-reducers
-
-  console.log("Next/Final State: ", store.getState());
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: ["user"],
 };
 
-const middleWares = [loggerMiddleware];
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
+  Boolean
+);
 
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+const composedEnhancer =
+  (process.env.NODE_ENV !== "production" &&
+    window &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
+
+const composedEnhancers = composedEnhancer(applyMiddleware(...middleWares));
+
+// export const store = createStore(rootReducer, undefined, composedEnhancers);
+export const store = createStore(
+  persistedReducer,
+  undefined,
+  composedEnhancers
+);
+
+export const persistor = persistStore(store);

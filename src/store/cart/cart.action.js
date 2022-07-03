@@ -34,19 +34,20 @@ const clearCartItem = (cartItems, cartItemToClear) => {
   return cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 };
 
-const addItemToCart = (productToAdd) => {
+const setCartItems = (cartItems) =>
+  createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems);
+
+export const addItemToCart = (cartItems, productToAdd) => {
   const newCartItems = addCartItem(cartItems, productToAdd);
-  updateCartItemsReducer(newCartItems);
+  return setCartItems(newCartItems);
 };
 
-const removeItemFromCart = (productToDelete) => {
+export const removeItemFromCart = (cartItems, productToDelete) => {
   const newCartItems = removeCartItem(cartItems, productToDelete);
-  updateCartItemsReducer(newCartItems);
+  return setCartItems(newCartItems);
 };
 
-const clearItemFromCart = (cartItemToClear) => {
+export const clearItemFromCart = (cartItems, cartItemToClear) => {
   const newCartItems = clearCartItem(cartItems, cartItemToClear);
-  updateCartItemsReducer(newCartItems);
+  return setCartItems(newCartItems);
 };
-
-// soon, add one for updatingCartItems
