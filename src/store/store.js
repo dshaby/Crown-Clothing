@@ -1,13 +1,14 @@
 // import { configureStore } from "@reduxjs/toolkit";
 import { compose, createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+// import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 // import { loggerMiddleware } from "./middleware/logger"; //if you prefer our middleware
-
+import createSagaMiddleware from "@redux-saga/core";
+import { rootSaga } from "./root-saga";
 const persistConfig = {
   key: "root",
   storage,
@@ -15,11 +16,14 @@ const persistConfig = {
   whitelist: ["cart"], //we only really need cart to persist
 };
 
+const sagaMiddleware = createSagaMiddleware();
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middleWares = [
   process.env.NODE_ENV !== "production" && logger,
-  thunk,
+  // thunk, (removed, bcz using saga)
+  sagaMiddleware,
 ].filter(Boolean);
 
 const composedEnhancer =
@@ -36,5 +40,7 @@ export const store = createStore(
   undefined,
   composedEnhancers
 );
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
