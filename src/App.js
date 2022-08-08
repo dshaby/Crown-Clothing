@@ -7,27 +7,30 @@ import Home from "./components/routes/home/home.component";
 import Navigation from "./components/routes/navigation/navigation.component.jsx";
 import Shop from "./components/routes/shop/shop";
 import { selectCartItems } from "./store/cart/cart.selector";
-import { setCurrentUser } from "./store/user/user.action";
-import {
-  createUserDocFromAuth,
-  onAuthStateChangedListener,
-} from "./utils/firebase/firebase.utils";
+import { checkUserSession } from "./store/user/user.action";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener(async (user) => {
-      if (user) {
-        try {
-          await createUserDocFromAuth(user);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-      dispatch(setCurrentUser(user));
-    });
-    return unsubscribe;
+    // Redux-Saga fetching for an action that's listened by a saga
+    dispatch(checkUserSession());
+
+    // Redux-Saga fetching, with a Promise
+    // getCurrentUser();
+
+    // Original way to fetch user (Observable Listener, async code here)
+    // const unsubscribe = onAuthStateChangedListener(async (user) => {
+    //   if (user) {
+    //     try {
+    //       await createUserDocFromAuth(user);
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   }
+    //   dispatch(setCurrentUser(user));
+    // });
+    // return unsubscribe;
   }, [dispatch]);
 
   // useEffect(() => {
