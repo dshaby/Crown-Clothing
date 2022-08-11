@@ -4,6 +4,13 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../store/user/user.action";
+
+// export type DefaultFormFields = {
+//   displayName: string;
+//   email: string;
+//   password: string
+// }
+
 const defaultFormFields = {
   displayName: "",
   email: "",

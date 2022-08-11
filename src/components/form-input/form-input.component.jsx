@@ -1,6 +1,11 @@
 import "./form-input.styles.jsx";
 import { FormInputCSS, FormInputLabel, Group } from "./form-input.styles.jsx";
 
+// type FormInputProps = {
+//   label: string;
+//   otherProps?: string |
+// }
+
 const FormInput = ({ label, ...otherProps }) => {
   return (
     <Group>
