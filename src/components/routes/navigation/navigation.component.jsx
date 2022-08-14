@@ -12,7 +12,7 @@ import CartDropdown from "../../cart-dropdown/cart-dropdown.component";
 // import { CartContext } from "../../../context/cart.context";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../store/user/user.selector.js";
-import { selectIsCartOpen } from "../../../store/cart/cart.selector.js";
+import { selectIsCartOpen } from "../../../store/cart/cart.selector.ts";
 import { signOutStart } from "../../../store/user/user.action.js";
 const Navigation = () => {
   const dispatch = useDispatch();

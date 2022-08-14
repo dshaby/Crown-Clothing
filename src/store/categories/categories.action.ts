@@ -4,7 +4,6 @@ import { CATEGORIES_ACTION_TYPES, Category } from "./categories.types";
 // export const setCategories = (categoriesArray) =>
 //   createAction(CATEGORIES_ACTION_TYPES.SET_CATEGORIES, categoriesArray);
 
-
 export type FetchCategoriesStart = Action<CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START>
 export const fetchCategoriesStart = withMatcher(() =>
   createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START));

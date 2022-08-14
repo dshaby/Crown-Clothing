@@ -16,7 +16,7 @@ export const CATEGORIES_INITIAL_STATE: CategoriesState = {
 
 export const categoriesReducer = (
   state = CATEGORIES_INITIAL_STATE,
-  action = {} as AnyAction //before withMatcher: CategoryAction
+  action: AnyAction //before withMatcher: CategoryAction
 ): CategoriesState => {
   // const { type, payload } = action;
   // In TypeScript, no destructuring, because won't always receive a payload
