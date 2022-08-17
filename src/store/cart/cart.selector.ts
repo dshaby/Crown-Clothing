@@ -1,8 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 import { CartState } from "./cart.reducer";
 
 // Parent
-const selectCartReducer = (state: any): CartState => state.cart;
+const selectCartReducer = (state: RootState): CartState => state.cart;
 
 // child (memoized)
 export const selectIsCartOpen = createSelector(
