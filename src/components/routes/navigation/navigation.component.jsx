@@ -11,9 +11,9 @@ import CartIcon from "../../cart-icon/cart-icon.component";
 import CartDropdown from "../../cart-dropdown/cart-dropdown.component";
 // import { CartContext } from "../../../context/cart.context";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser } from "../../../store/user/user.selector.js";
+import { selectCurrentUser } from "../../../store/user/user.selector";
 import { selectIsCartOpen } from "../../../store/cart/cart.selector.ts";
-import { signOutStart } from "../../../store/user/user.action.js";
+import { signOutStart } from "../../../store/user/user.action";
 const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);

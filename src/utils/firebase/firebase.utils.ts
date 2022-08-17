@@ -8,6 +8,7 @@ import {
   writeBatch,
   query,
   getDocs,
+  QueryDocumentSnapshot,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -17,7 +18,11 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  User,
+  NextOrObserver
 } from "firebase/auth";
+import { Category } from "../../store/categories/categories.types";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBKBxQsBeo5mqRwotmYZza5fYFQQ327onQ",
@@ -39,10 +44,14 @@ googleProvider.setCustomParameters({
 export const auth = getAuth();
 export const db = getFirestore();
 
-export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd
-) => {
+export type ObjectToAdd = {
+  title: string; //the only thing we know for sure exists on this ObjectToAdd
+}
+
+export const addCollectionAndDocuments = async <T extends ObjectToAdd>(//<T is a generic
+  collectionKey: string,
+  objectsToAdd: T[]//an array of some object type that we're adding to DB, could be random object type
+): Promise<void> => {//all async functions return a Promise, but here our Promise is <void>
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
 
@@ -55,13 +64,13 @@ export const addCollectionAndDocuments = async (
   console.log("done");
 };
 
-export const getCategoriesAndDocuments = async () => {
+export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
   const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
   const categoriesArray = querySnapshot.docs.map((docSnapshot) =>
-    docSnapshot.data()
+    docSnapshot.data() as Category
   );
   return categoriesArray;
 };
@@ -69,7 +78,19 @@ export const getCategoriesAndDocuments = async () => {
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
 
-export const createUserDocFromAuth = async (userAuth, additionalInfo = {}) => {
+  export type AdditionalInfo = {
+    displayName?: string;
+  }
+
+  export type UserData = {
+    createdAt: Date;
+    displayName: string;
+    email:string;
+  }
+
+export const createUserDocFromAuth = async (userAuth: User, additionalInfo = {} as AdditionalInfo): Promise<void | QueryDocumentSnapshot<UserData>> => {
+  // if logging out, empty Promise value, not returning anything
+  // else, returning a userSnapshot, which has a QueryDocumentsSnapshot datatype from Firebase utils, and it has our UserData in it.
   if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
@@ -86,20 +107,20 @@ export const createUserDocFromAuth = async (userAuth, additionalInfo = {}) => {
         ...additionalInfo,
       });
     } catch (error) {
-      console.log("error creating user" + error.message);
+      console.log("error creating user" + error);
     }
   } else {
-    return userSnapshot;
+    return userSnapshot as QueryDocumentSnapshot<UserData>;
   }
 };
 
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+export const signInAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
@@ -109,11 +130,13 @@ export const signOutUser = async () => {
   return await signOut(auth);
 };
 
-export const onAuthStateChangedListener = (callback) => {
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) => {
+  // a special function that gets called .next() whenever observer changes
+  // imported from Firebase, and it gives us the User account, with any change 
   onAuthStateChanged(auth, callback);
 };
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<User | null> => {
   return new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(
       auth,
