@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Authentication from "./components/routes/authentication/authentication.component";
 import CheckOut from "./components/routes/checkout/checkout.component";
 import Home from "./components/routes/home/home.component";
-import Navigation from "./components/routes/navigation/navigation.component.jsx";
+import Navigation from "./components/routes/navigation/navigation.component";
 import Shop from "./components/routes/shop/shop";
 import { selectCartItems } from "./store/cart/cart.selector";
 import { checkUserSession } from "./store/user/user.action";

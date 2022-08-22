@@ -1,5 +1,5 @@
 import "./sign-in-form.styles.scss";
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import { useNavigate } from "react-router-dom";
@@ -29,12 +29,12 @@ const SignInForm = () => {
     dispatch(googleSignInStart()); //with Redux Saga
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -46,7 +46,7 @@ const SignInForm = () => {
       resetFormFields();
       navigate("/");
       // return user.accessToken;
-    } catch (err) {
+    } catch (err: any) {
       switch (err.code) {
         case "auth/wrong-password":
           alert("Wrong password, please try again.");
@@ -65,7 +65,7 @@ const SignInForm = () => {
     <div className="sign-in">
       <h2 className="title">Already have an account?</h2>
       <span>Sign in with your email and password</span>
-      <form onSubmit={handleSubmit} className="sign-in-form">
+      <form onSubmit={(e) => handleSubmit} className="sign-in-form">
         <FormInput
           label="Email"
           type="email"

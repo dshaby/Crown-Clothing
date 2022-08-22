@@ -7,8 +7,8 @@ import {
 } from "../../../store/categories/categories.selector";
 import ProductCard from "../../product-card/product-card.component";
 import Spinner from "../../spinner/spinner.component";
-import "./category.styles.jsx";
-import { CategoryContainer, CategoryTitle } from "./category.styles.jsx";
+import "./category.styles";
+import { CategoryContainer, CategoryTitle } from "./category.styles.js";
 
 const Category = () => {
   const categoriesMap = useSelector(selectCategoriesMap);

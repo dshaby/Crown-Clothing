@@ -1,10 +1,11 @@
 import "./sign-up-form.styles.scss";
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../store/user/user.action";
-
+import { AuthError, AuthErrorCodes } from "firebase/auth";
+// Class components
 // export type DefaultFormFields = {
 //   displayName: string;
 //   email: string;
@@ -23,7 +24,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
@@ -32,7 +33,7 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match");
@@ -47,10 +48,11 @@ const SignUpForm = () => {
       dispatch(signUpStart(email, password, displayName)); //reduxSaga
       resetFormFields();
     } catch (err) {
-      if (err.code === "auth/email-already-in-use") {
+      
+      if ((err as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert("Your email already exists. Try logging in instead. ");
       } else {
-        console.log("error creating user" + err.message);
+        console.log("error creating user" + err);
       }
     }
   };

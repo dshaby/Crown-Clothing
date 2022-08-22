@@ -1,17 +1,16 @@
-import "./cart-icon.styles.jsx";
 // import { useContext } from "react";
 // import { CartContext } from "../../context/cart.context";
 import {
   CartIconContainer,
   ItemCount,
   ShoppingIconCSS,
-} from "./cart-icon.styles.jsx";
-import { setIsCartOpen } from "../../store/cart/cart.action.ts";
+} from "./cart-icon.styles";
+import { setIsCartOpen } from "../../store/cart/cart.action";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCartCount,
   selectIsCartOpen,
-} from "../../store/cart/cart.selector.ts";
+} from "../../store/cart/cart.selector";
 const CartIcon = () => {
   // const { cartCount } = useContext(CartContext);
   const cartCount = useSelector(selectCartCount);
