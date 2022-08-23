@@ -1,4 +1,5 @@
 // import { useContext } from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { CartContext } from "../../context/cart.context";
@@ -13,18 +14,23 @@ import {
 } from "./cart-dropdown.styles";
 
 const CartDropdown = () => {
+  
   // const { cartItems } = useContext(CartContext);
   const cartItems = useSelector(selectCartItems);
 
   let navigate = useNavigate();
-  const goToCheckoutHandler = () => {
+
+  const goToCheckoutHandler = useCallback(() => {
     navigate("/checkout");
-  };
+    // eslint-disable-next-line
+  }, []); //don't add navigate as dependency, it's value doesn't change
 
   const dispatch = useDispatch();
   const close = () => {
     dispatch(setIsCartOpen(false));
   };
+
+  
 
   return (
     <CartDropdownContainer onMouseLeave={close}>
