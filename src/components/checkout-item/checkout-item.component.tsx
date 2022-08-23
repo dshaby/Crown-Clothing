@@ -8,8 +8,14 @@ import {
 } from "../../store/cart/cart.action";
 import { selectCartItems } from "../../store/cart/cart.selector";
 import "./checkout-item.styles.scss";
+import { CartItem} from "../../store/cart/cart.types";
+import {FC} from "react";
 
-const CheckoutItem = ({ cartItem }) => {
+type CheckoutItemProps = {
+  cartItem: CartItem;
+}
+
+const CheckoutItem: FC<CheckoutItemProps> = ({ cartItem }) => {
   // const { addItemToCart, removeItemFromCart, clearItemFromCart } =
   //   useContext(CartContext);
 

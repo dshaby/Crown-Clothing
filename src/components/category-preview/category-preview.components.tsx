@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
 import ProductCard from "../product-card/product-card.component";
 import "./category-preview.styles.scss";
-import Spinner from "../../components/spinner/spinner.component";
+import Spinner from "../spinner/spinner.component";
 import { useSelector } from "react-redux";
 import { selectCategoriesIsLoading } from "../../store/categories/categories.selector";
+import {FC} from "react";
+import { CategoryItem } from "../../store/categories/categories.types";
 
-const CategoryPreview = ({ title, products }) => {
+type CategoryPreviewProps = {
+  title: string;
+  products: CategoryItem[];
+}
+
+const CategoryPreview: FC<CategoryPreviewProps> = ({ title, products }) => {
   const isLoading = useSelector(selectCategoriesIsLoading);
 
   return (

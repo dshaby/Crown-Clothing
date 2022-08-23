@@ -5,15 +5,22 @@ import { addItemToCart, setIsCartOpen } from "../../store/cart/cart.action";
 import { selectCartItems } from "../../store/cart/cart.selector";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import "./product-card.styles.scss";
+import { FC} from "react"
+import { CategoryItem } from "../../store/categories/categories.types";
 
-const ProductCard = ({ product }) => {
+type ProductCardProps = {
+  product: CategoryItem
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { name, imageUrl, price } = product;
   const cartItems = useSelector(selectCartItems);
 
   // const { addItemToCart } = useContext(CartContext);
 
   const dispatch = useDispatch();
-  const addProductToCart = (product) => {
+
+  const addProductToCart = () => {
     dispatch(addItemToCart(cartItems, product));
     dispatch(setIsCartOpen(true));
   };
@@ -27,7 +34,7 @@ const ProductCard = ({ product }) => {
       </div>
       <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}
-        onClick={() => addProductToCart(product)}
+        onClick={addProductToCart}
       >
         Add to Cart
       </Button>
