@@ -9,7 +9,7 @@ import Shop from "./components/routes/shop/shop";
 import Spinner from "./components/spinner/spinner.component";
 import { selectCartItems } from "./store/cart/cart.selector";
 import { checkUserSession } from "./store/user/user.action";
-
+import { GlobalStyle } from "./global.styles";
 const Authentication = lazy(() =>
   import("./components/routes/authentication/authentication.component")
 );
@@ -50,6 +50,7 @@ const App = () => {
 
   return (
     <>
+      <GlobalStyle />
       <Suspense fallback={<Spinner />}>
         <Routes>
           <Route path="/" element={<Navigation />}>

@@ -1,4 +1,3 @@
-import "./header-block.styles.scss";
 import {FC} from "react";
 
 type CheckoutHeaderProps = {

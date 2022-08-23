@@ -1,9 +1,17 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 20px 40px;
+
+    @media screen and (max-width: 800px) {
+        padding: 10px
+    }
+
 }
 
 code {
@@ -19,3 +27,4 @@ a {
 * {
   box-sizing: border-box;
 }
+`
