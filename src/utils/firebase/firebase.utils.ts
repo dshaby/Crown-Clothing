@@ -44,6 +44,7 @@ googleProvider.setCustomParameters({
 export const auth = getAuth();
 export const db = getFirestore();
 
+// PRODUCTS
 export type ObjectToAdd = {
   title: string; //the only thing we know for sure exists on this ObjectToAdd
 }
@@ -75,6 +76,7 @@ export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
   return categoriesArray;
 };
 
+// USERS
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
 
@@ -96,6 +98,7 @@ export const createUserDocFromAuth = async (userAuth: User, additionalInfo = {} 
   const userDocRef = doc(db, "users", userAuth.uid);
 
   const userSnapshot = await getDoc(userDocRef);
+
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();

@@ -26,4 +26,5 @@ const DirectoryItem: FC<DirectoryItemProps> = ({ category: { imageUrl, title, ro
     </DirectoryItemContainer>
   );
 };
+
 export default DirectoryItem;

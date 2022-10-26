@@ -29,7 +29,10 @@ const CheckOut = () => {
           <CheckoutItem key={cartItem.id} cartItem={cartItem} />
         ))}
         <div className="total">
-          <span className="total">TOTAL: ${cartTotal} </span>
+          <div > ${cartTotal} </div>
+          <div>Tax: 10%: ${(cartTotal*0.10).toFixed(2)}</div>
+          <span className="total">TOTAL: ${(1.1*cartTotal).toFixed(2)} </span>
+
         </div>
         <PaymentForm />
       </div>
