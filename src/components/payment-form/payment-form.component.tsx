@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
@@ -10,6 +10,12 @@ import {
   PaymentButton,
   PaymentFormContainer,
 } from "./payment-form.styles";
+
+type EmailFormProps = {
+  message: string | Error | null,
+  status: string | null,
+  onValidated: Function
+}
 
 type personalFieldsType = {
   name: string | undefined,
@@ -35,7 +41,7 @@ const addressFieldsDefault: addressFieldsType = {
     postal_code: ""
 }
 
-const PaymentForm = () => {
+const PaymentForm: FC<EmailFormProps> = ({status, message, onValidated} ) => {
   const stripe = useStripe();
   const elements = useElements();
   const cartTotal = parseFloat((useSelector(selectCartTotal)*1.1).toFixed(2));
@@ -111,7 +117,20 @@ const PaymentForm = () => {
     } else if (paymentResult.paymentIntent.status === "succeeded") {
         alert("Payment Succeeded");
       }
-    setIsProcessingPayment(false);
+    setIsProcessingPayment(false); 
+    
+    onValidated({
+      EMAIL: personalFields.email,
+      FNAME: personalFields.name,
+      ADDRESS:{
+        addr1: addressFields.line1,
+        city: addressFields.city,
+        state:addressFields.state,
+        zip:addressFields.postal_code
+      } 
+    });
+
+    if (status === "error") console.log(message);
   };
 
   return (
@@ -129,6 +148,10 @@ const PaymentForm = () => {
 
         <CardElement />
 
+        {status === "sending" && (<div>Signing up ...</div>)}
+        {status === "error"  && ( <div>There has been an error. Email possibly already exists. Please view the console.</div>)}
+        {status === "success" && (<div>Successfully sent a confirmation email</div>)}
+        
         <PaymentButton
           isLoading={isProcessingPayment}
           buttonType={BUTTON_TYPE_CLASSES.inverted}

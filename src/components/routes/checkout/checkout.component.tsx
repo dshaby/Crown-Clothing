@@ -1,17 +1,14 @@
-// import { useContext } from "react";
 import { useSelector } from "react-redux";
-// import { CartContext } from "../../../context/cart.context";
 import {
   selectCartItems,
   selectCartTotal,
 } from "../../../store/cart/cart.selector";
 import CheckoutHeader from "../../checkout-header/header-block.component";
 import CheckoutItem from "../../checkout-item/checkout-item.component";
-import PaymentForm from "../../payment-form/payment-form.component";
 import "./checkout.styles.scss";
+import MailchimpFormContainer from "../../mailchimp/mailchimp-form";
 
 const CheckOut = () => {
-  // const { cartItems, cartTotal } = useContext(CartContext);
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
 
@@ -34,7 +31,7 @@ const CheckOut = () => {
           <span className="total">TOTAL: ${(1.1*cartTotal).toFixed(2)} </span>
 
         </div>
-        <PaymentForm />
+        <MailchimpFormContainer />
       </div>
     </>
   );
