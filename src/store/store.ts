@@ -11,6 +11,7 @@ import createSagaMiddleware from "@redux-saga/core";
 import { rootSaga } from "./root-saga";
 
 export type RootState = ReturnType<typeof rootReducer>
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
