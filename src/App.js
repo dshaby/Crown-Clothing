@@ -1,7 +1,6 @@
 import { useEffect, lazy, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-// import Authentication from "./components/routes/authentication/authentication.component";
 import CheckOut from "./components/routes/checkout/checkout.component";
 import Home from "./components/routes/home/home.component";
 import Navigation from "./components/routes/navigation/navigation.component";
@@ -21,31 +20,7 @@ const App = () => {
   useEffect(() => {
     // Redux-Saga fetching for an action that's listened by a saga
     dispatch(checkUserSession());
-
-    // Redux-Saga fetching, with a Promise
-    // getCurrentUser();
-
-    // Original way to fetch user (Observable Listener, async code here)
-    // const unsubscribe = onAuthStateChangedListener(async (user) => {
-    //   if (user) {
-    //     try {
-    //       await createUserDocFromAuth(user);
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   }
-    //   dispatch(setCurrentUser(user));
-    // });
-    // return unsubscribe;
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   const getCartItems = async () => {
-  //     const cartItems =
-  //   }
-
-  //   return getCartItems
-  // }, [dispatch]);
 
   useSelector(selectCartItems);
 
