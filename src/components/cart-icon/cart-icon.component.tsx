@@ -1,5 +1,3 @@
-// import { useContext } from "react";
-// import { CartContext } from "../../context/cart.context";
 import {
   CartIconContainer,
   ItemCount,
@@ -12,7 +10,6 @@ import {
   selectIsCartOpen,
 } from "../../store/cart/cart.selector";
 const CartIcon = () => {
-  // const { cartCount } = useContext(CartContext);
   const cartCount = useSelector(selectCartCount);
   const isCartOpen = useSelector(selectIsCartOpen);
   const dispatch = useDispatch();
