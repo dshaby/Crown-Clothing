@@ -18,7 +18,6 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Redux-Saga fetching for an action that's listened by a saga
     dispatch(checkUserSession());
   }, [dispatch]);
 

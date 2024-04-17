@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
 
-import Button, {BUTTON_TYPE_CLASSES} from "./button.component";
+import Button, {BUTTON_TYPE_CLASSES} from "../button.component";
 
 describe("Button Tests", () => {
     test("Should render base button when nothing is passed", () => {

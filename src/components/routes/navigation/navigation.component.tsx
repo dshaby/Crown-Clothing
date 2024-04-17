@@ -6,10 +6,8 @@ import {
   NavLinks,
 } from "./navigation.styles";
 import { ReactComponent as Logo } from "../../../assets/crown.svg";
-// import { useContext } from "react";
 import CartIcon from "../../cart-icon/cart-icon.component";
 import CartDropdown from "../../cart-dropdown/cart-dropdown.component";
-// import { CartContext } from "../../../context/cart.context";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../store/user/user.selector";
 import { selectIsCartOpen } from "../../../store/cart/cart.selector";
@@ -18,17 +16,8 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
-  // const { isCartOpen } = useContext(CartContext);
 
   const signOutHandler = () => dispatch(signOutStart());
-  //   try {
-  //     // await signOutUser();
-
-  //   } catch (err) {
-  //     alert(err.message);
-  //     console.log(err);
-  //   }
-  // };
 
   return (
     <>

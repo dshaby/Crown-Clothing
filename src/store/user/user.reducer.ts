@@ -15,7 +15,6 @@ const INITIAL_STATE: UserState = {
 };
 
 export const userReducer = (state = INITIAL_STATE, action: AnyAction): UserState => {
-  // const { type, payload } = action;
   if (signInSuccess.match(action)) {
     return {...state, isLoading: false, currentUser: action.payload}
   }
@@ -27,19 +26,6 @@ export const userReducer = (state = INITIAL_STATE, action: AnyAction): UserState
   if (signOutSuccess.match(action)) {
     return {...state, currentUser: null}
   }
-
-  // switch (type) {
-    // case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
-    //   return { ...state, isLoading: false, currentUser: payload };
-
-    // case USER_ACTION_TYPES.SIGN_OUT_FAILED:
-    // case USER_ACTION_TYPES.SIGN_IN_FAILED:
-    // case USER_ACTION_TYPES.SIGN_UP_FAILED:
-    //   return { ...state, error: payload };
-
-    // case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
-    //   return { ...state, currentUser: null };
-    // default:
-      return state;
-  // }
+  
+  return state;
 };
