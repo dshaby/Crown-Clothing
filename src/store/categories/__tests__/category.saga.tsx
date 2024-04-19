@@ -2,7 +2,7 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan';
 import { categoriesSaga, fetchCategoriesAsync, onFetchCategories } from "../categories.saga"
 import { call } from 'redux-saga/effects';
 import { CATEGORIES_ACTION_TYPES, CategoryItem } from '../categories.types';
-import { fetchCategoriesFailed, fetchCategoriesStart, fetchCategoriesSuccess } from '../categories.action';
+import { fetchCategoriesFailed, fetchCategoriesSuccess } from '../categories.action';
 import { getCategoriesAndDocuments } from '../../../utils/firebase/firebase.utils';
 import { mockCategoriesData } from '../mocks';
 import { throwError } from 'redux-saga-test-plan/providers';
